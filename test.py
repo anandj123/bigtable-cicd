@@ -1,5 +1,14 @@
-from __future__ import print_function
+"""
+Provides some arithmetic functions
+"""
+import sys
+
 def test_tasks1():
-    assert(True)
+    """Function printing python version."""
+    print(sys.version)
+    a_var = 1
+    b_var = 2
+    assert a_var==b_var
 def test_task2():
-    assert(False)
+    """Function printing python version."""
+    print(sys.version)
