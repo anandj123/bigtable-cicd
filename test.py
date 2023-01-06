@@ -1,4 +1,4 @@
 def test_tasks1():
-    assert(true)
+    assert(True)
 def test_task2():
-    assert(false)
+    assert(False)
