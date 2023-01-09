@@ -1,0 +1,7 @@
+table:
+  name: sample3
+  column_families:
+    - name: cf1
+      max_versions: 1
+    - name: cf2
+      max_versions: 3
