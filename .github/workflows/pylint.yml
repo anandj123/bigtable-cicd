@@ -19,7 +19,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install pylint
         pip install -r requirements.txt
-    - name: 'Authenticate to Google Cloud'
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
