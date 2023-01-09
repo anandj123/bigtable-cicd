@@ -1,12 +1,13 @@
-google-cloud-bigtable==2.14.1
-google-cloud-core==2.3.2
-
 #Import the modules
 import datetime
 
 from google.cloud import bigtable
 from google.cloud.bigtable import column_family
 from google.cloud.bigtable import row_filters
+
+project_id = "hca-demo-project"
+instance_id = "my-instance"
+table_id = "sample2"
 
 # The client must be created with admin=True because it will create a
 # table.
