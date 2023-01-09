@@ -20,10 +20,10 @@ jobs:
         pip install pylint
         pip install -r requirements.txt
     - id: 'auth'
-        name: 'Authenticate to Google Cloud'
-        uses: 'google-github-actions/auth@v0.4.0'
-        with:
-          credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-        - name: Create Bigtable table
-          run: |
-            python table.py
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.4.0'
+      with:
+        credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
+      - name: Create Bigtable table
+        run: |
+          python table.py
