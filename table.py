@@ -5,7 +5,7 @@ from google.cloud import bigtable
 from google.cloud.bigtable import column_family
 from google.cloud.bigtable import row_filters
 
-project_id = "hca-demo-project"
+project_id = "hca-demo-project-373816"
 instance_id = "my-instance"
 table_id = "sample2"
 
@@ -24,6 +24,8 @@ max_versions_rule = column_family.MaxVersionsGCRule(2)
 column_family_id = "cf1"
 column_families = {column_family_id: max_versions_rule}
 if not table.exists():
+    print("Table doesnot exist")
     table.create(column_families=column_families)
 else:
     print("Table {} already exists.".format(table_id))
+print('Done')
