@@ -7,7 +7,7 @@ from google.cloud.bigtable import row_filters
 
 project_id = "hca-demo-project-373816"
 instance_id = "my-instance"
-table_id = "sample2"
+table_id = "sample3"
 
 # The client must be created with admin=True because it will create a
 # table.
