@@ -24,6 +24,6 @@ jobs:
       uses: 'google-github-actions/auth@v0.4.0'
       with:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
-      - name: Create Bigtable table
-        run: |
-          python table.py
+    - name: Create Bigtable table
+      run: |
+        python table.py
