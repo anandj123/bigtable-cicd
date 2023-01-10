@@ -5,6 +5,9 @@ This application checks the directory for bigtable_schema_x.yaml files and creat
 
 # Architecture 
 
+![Architecture](./img/arch.png)
+
+# Build instructions
 
  * `app.py` sourced from the [knative sample documentation](https://github.com/knative/docs/blob/master/docs/serving/samples/hello-world/helloworld-python/app.py)
  * `Dockerfile` sourced from the [knative sample documentation](https://github.com/knative/docs/blob/master/docs/serving/samples/hello-world/helloworld-python/Dockerfile)
