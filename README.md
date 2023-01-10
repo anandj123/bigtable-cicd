@@ -8,14 +8,54 @@ This application checks the directory for bigtable_schema_x.yaml files and creat
 ![Architecture](./img/arch.png)
 
 # Build instructions
+### Prerequisite
+The following prerequisite is required for the build
 
- * `app.py` sourced from the [knative sample documentation](https://github.com/knative/docs/blob/master/docs/serving/samples/hello-world/helloworld-python/app.py)
- * `Dockerfile` sourced from the [knative sample documentation](https://github.com/knative/docs/blob/master/docs/serving/samples/hello-world/helloworld-python/Dockerfile)
+1. [Installed Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 
-## Contributions
+### Create BigTable schema files
 
-Please see the [contributing guidelines](CONTRIBUTING.md)
+1. Use the same naming convention for all schema files
+```sh
 
-## License
+bigtable_schema_<table_id>.yaml
 
-This library is licensed under Apache 2.0. Full license text is available in [LICENSE](LICENSE).
+```
+
+2. Create a YAML file with the following syntax
+```sh
+
+project_id: <project_id>
+instance_id: <instance_name>
+table_id: <table_name>
+column_families:
+- name: <column_family_name1>
+  max_versions_rule: 2
+  max_age_rule: 7
+- name: <column_family_name2>
+  max_versions_rule: 2
+  max_age_rule: 7
+
+```
+|Variable Name|Description|
+|---|---|
+|project_id|Provide your project id. |
+|instance_id| Provide your Bigtable insance id. |
+|table_id| Provide your Bigtable table id. |
+
+|Column Families Variable Name|Description|
+|---|---|
+|name|Provide the name of the column family|
+|max_versions_rule|Configure the maximum number of versions for cells in a table|
+|max_age_rule|Configure the maximum age for cells in a table|
+
+### Github Action
+Once the schema files are committed to the git repository, the github action will run a python script will scan the git repository for the files using the naming convention. Then, it will read all the configuration parameters listed above and create the tables in Bigtable.
+
+# Output 
+The output in Bigtable will look like the following 
+
+![Bigtable Table](./img/output.png)
+
+
+# References
