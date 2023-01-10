@@ -1,9 +1,16 @@
 #Import the modules
 import datetime
-
+import os
 from google.cloud import bigtable
 from google.cloud.bigtable import column_family
 from google.cloud.bigtable import row_filters
+
+path = "."
+dir_list = os.listdir(path)
+for file in dir_list: 
+    if (file.startswith('bigtable_schema_') and file.endswith('.yaml')):
+        print(file)
+exit()
 
 project_id = "hca-demo-project-373816"
 instance_id = "my-instance"
