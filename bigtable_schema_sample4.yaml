@@ -5,5 +5,7 @@ table:
   column_families:
     - name: cf1
       max_versions: 1
+      max_age_rule: 7
     - name: cf2
       max_versions: 3
+      max_age_rule: 7
