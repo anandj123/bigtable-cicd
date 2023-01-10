@@ -1,3 +1,5 @@
+project_id: hca-demo-project-373816
+instance_id: my-instance
 table:
   name: sample4
   column_families:
