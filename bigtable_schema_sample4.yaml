@@ -1,5 +1,6 @@
 project_id: hca-demo-project-373816
 instance_id: my-instance
+cluster_id: my-instance-c1
 table:
   name: sample4
   column_families:
@@ -10,6 +11,6 @@ table:
       max_versions: 3
       max_age_rule: 7
 app_profile:
-  name: my_app_profile
-  routing_policy: multi_cluster
-    - cluster_configuration: any 
+  name: my_app_profile_2
+  routing_policy: single-cluster
+  single_row_transaction: true 

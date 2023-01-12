@@ -12,33 +12,44 @@ from google.cloud.bigtable import enums
 
 def create_app_profile():
 
-    #client = bigtable.Client(
-    project_id='hca-demo-project-373816'
-    #client = bigtable.Client(project=project_id, admin=True)
-    #instance = client.instance('my-instance')
-    #table = bigtable.table.Table(table_id, instance, '[APP_PROFILE_ID]')
-    #app_profile_id = "my-app-profile"
-    #app_profile = instance.app_profile(app_profile_id)
-    #app_profile.create(ignore_warnings=True,single_cluster_routing=instance.AppProfile.SINGLE_CLUSTER_ROUTING_ON)
+    path = "."
+    dir_list = os.listdir(path)
+    for file in dir_list: 
+        if (file.startswith('bigtable_schema_') and file.endswith('.yaml')):
+            with open(file) as f:
+                data = yaml.load(f, Loader=SafeLoader)
+                project_id = data['project_id']
+                instance_id = data['instance_id']
+                cluster_id = data['cluster_id']
+                table_id = data['table']['name']
+                app_profile_id = data['app_profile']['name']
+                routing_policy_type = data['app_profile']['routing_policy']
+                if routing_policy_type == 'multi-cluster':
+                    routing_policy_type = enums.RoutingPolicyType.ANY
+                    description = "multi-cluster routing"
+                else:
+                    routing_policy_type = enums.RoutingPolicyType.SINGLE
+                    description = "single-cluster routing"
+                allow_transactional_writes = data['app_profile']['single_row_transaction']
 
-    routing_policy_type = enums.RoutingPolicyType.ANY
 
-    client = Client(project=project_id, admin=True)
-    instance = client.instance('my-instance')
+                client = Client(project=project_id, admin=True)
+                instance = client.instance(instance_id)
 
-    description = "routing policy-multy"
+                app_profile = instance.app_profile(
+                    app_profile_id=app_profile_id,
+                    routing_policy_type=routing_policy_type,
+                    description=description,
+                    cluster_id=cluster_id,
+                    allow_transactional_writes=allow_transactional_writes
+                )
 
-    app_profile = instance.app_profile(
-        app_profile_id='my-app-profile',
-        routing_policy_type=routing_policy_type,
-        description=description,
-        cluster_id='my-instance-c1',
-    )
-
-    app_profile = app_profile.create(ignore_warnings=True)
-
-    
-
+                if not app_profile.exists():
+                    print("App profile does not exist")
+                    app_profile = app_profile.create(ignore_warnings=True)
+                else:
+                    print("App profile {} already exists.".format(app_profile_id))
+                print('Done')  
 
 def create_table():
     path = "."
@@ -87,5 +98,4 @@ def create_table():
 
 create_app_profile()
 #create_table()
-
 
