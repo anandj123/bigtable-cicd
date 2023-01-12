@@ -40,8 +40,8 @@ for file in dir_list:
                 #column_families[cf['name']] = max_versions_rule
                 #max_age_rule
                 max_age = int(cf['max_age_rule'])
-                max_age_rule_ = column_family.MaxAgeGCRule(max_age)
-                column_families[cf['name']] = column_family.GCRuleIntersection([max_versions_rule, max_age_rule_])
+                max_age_rule_ = column_family.MaxAgeGCRule(datetime.timedelta(days=max_age))
+                column_families[cf['name']] = column_family.GCRuleUnion(rules=[max_versions_rule, max_age_rule_])
 
 
             #column_family_id = data['table']['column_families']['name']
