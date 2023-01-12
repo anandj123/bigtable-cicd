@@ -9,3 +9,7 @@ table:
     - name: cf2
       max_versions: 3
       max_age_rule: 7
+app_profile:
+  name: my_app_profile
+  routing_policy: single_cluster
+    - single_row_transaction: true
