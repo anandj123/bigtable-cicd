@@ -92,11 +92,33 @@ Validating column family rules in the console:
 
 ![cf_rule_console](./img/cf_rule_console.png)
 
+### Utilizing Python Script 
+You can run the python script using the command below. This will scan the directory for all files using the naming convention (bigtable_schema_x.yaml). Then, it will read all the specified configurations in the YAML file to create the output in Bigtable.
 
+```sh
 
+python3 apply_schema.py
 
-### Github Action
-Once the schema files are committed to the git repository, the github action will run a python script will scan the git repository for the files using the naming convention. Then, it will read all the configuration parameters listed above and create the tables in Bigtable.
+```
+
+You can create a table and apply the schema using the command below.
+
+```sh
+
+gcloud bigtable instances tables create <table_id> --instance=<instance_id> --column-families=<bigtable_schema_x.yaml>
+
+```
+
+You can delete a table using the command below.
+
+```sh
+
+gcloud bigtable instances tables delete <table_id> --instance=<instance_id>
+
+```
+
+### Utilizing Github Action
+Once the schema files are committed to the git repository, the github action will run the python script which create the output in Bigtable.
 
 # Output 
 The output in Bigtable will look like the following 
