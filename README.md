@@ -9,9 +9,19 @@ This application checks the directory for bigtable_schema_x.yaml files and creat
 
 # Build instructions
 ### Prerequisite
-The following prerequisite is required for the build
+The following prerequisites are required for the build:
 
 1. [Installed Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
+
+2. Configure a secret
+    - Navigate to the console and click on 'IAM & Admin'
+    - Click on 'Service Accounts' on the left pane
+    - Click '+ CREATE SERVICE ACCOUNT' and create a github service account
+    - Click on the created service accoutn and navigate to 'KEYS' near the top of the page
+    - Click on 'ADD KEY' and select the 'JSON' option
+    - Navigate to the github repo and click on 'Settings > Secrets and variables > Actions > Actions Secret'
+    - Click on 'New repository secret' and name it 'Google Credentials' and copy the file that was downloaded from creating a key as the secret
+    - Click 'Add secret' and then add to workflow
 
 ### Create BigTable schema files
 
