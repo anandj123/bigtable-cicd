@@ -23,6 +23,8 @@ The following prerequisites are required for the build:
     - Click on 'New repository secret' and name it 'GOOGLE_CREDENTIALS' and copy the file that was downloaded from creating a key as the secret
     - Click 'Add secret' and then add to workflow
 
+3. [Create a Bigtable cluster](https://cloud.google.com/bigtable/docs/creating-cluster)
+
 ### Create BigTable schema files
 
 1. Use the same naming convention for all schema files
