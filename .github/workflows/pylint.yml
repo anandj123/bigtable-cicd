@@ -26,4 +26,4 @@ jobs:
         credentials_json: '${{ secrets.GOOGLE_CREDENTIALS }}'
     - name: Create Bigtable table
       run: |
-        python table.py
+        python apply_schema.py
