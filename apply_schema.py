@@ -1,3 +1,11 @@
+"""Demonstrates how to connect to Cloud Bigtable and run some basic operations.
+Prerequisites:
+- Create a Cloud Bigtable cluster.
+  https://cloud.google.com/bigtable/docs/creating-cluster
+- Set your Google Application Default Credentials.
+  https://developers.google.com/identity/protocols/application-default-credentials
+"""
+
 #Import the modules
 import datetime
 import os
@@ -96,6 +104,7 @@ def create_table():
                     print("Table {} already exists.".format(table_id))
                 print('Done')       
 
-create_app_profile()
-#create_table()
+if __name__ == "__main__":
+    create_app_profile()
+    create_table()
 
