@@ -23,42 +23,52 @@ def create_app_profile():
     path = "."
     dir_list = os.listdir(path)
     for file in dir_list: 
-        if (file.startswith('bigtable_schema_') and file.endswith('.yaml')):
+        if (file.startswith('app_profile') and file.endswith('.yaml')):
+            print(file)
             with open(file) as f:
                 data = yaml.load(f, Loader=SafeLoader)
+
                 project_id = data['project_id']
                 instance_id = data['instance_id']
-                cluster_id = data['cluster_id']
-                table_id = data['table']['name']
-                app_profile_id = data['app_profile']['name']
-                routing_policy_type = data['app_profile']['routing_policy']
-                if routing_policy_type == 'multi-cluster':
-                    routing_policy_type = enums.RoutingPolicyType.ANY
-                    description = "multi-cluster routing"
-                else:
-                    routing_policy_type = enums.RoutingPolicyType.SINGLE
-                    description = "single-cluster routing"
-                allow_transactional_writes = data['app_profile']['single_row_transaction']
+                for ap in data['app_profiles']:
+                    if ap['app_profile'] is None:
+                        break
+                    app_profile_id = ap['app_profile']['name']
+                    print(app_profile_id)
 
+                    client = Client(project=project_id, admin=True)
+                    instance = client.instance(instance_id)
 
-                client = Client(project=project_id, admin=True)
-                instance = client.instance(instance_id)
+                    routing_policy_type = ap['app_profile']['routing_policy']
+                    if routing_policy_type == 'multi-cluster':
+                        routing_policy_type = enums.RoutingPolicyType.ANY
+                        description = "multi-cluster routing"
+                        print("Creating the {} app profile.".format(app_profile_id))
+                        app_profile = instance.app_profile(
+                            app_profile_id=app_profile_id,
+                            routing_policy_type=routing_policy_type,
+                            description=description,
+                        )
+                    else:
+                        routing_policy_type = enums.RoutingPolicyType.SINGLE
+                        description = "single-cluster routing"
+                        allow_transactional_writes = ap['app_profile']['single_row_transaction']
+                        cluster_id = ap['app_profile']['cluster_id']
+                        print("Creating the {} app profile.".format(app_profile_id))
+                        app_profile = instance.app_profile(
+                            app_profile_id=app_profile_id,
+                            routing_policy_type=routing_policy_type,
+                            description=description,
+                            cluster_id=cluster_id,
+                            allow_transactional_writes=allow_transactional_writes
+                        )
 
-                print("Creating the {} app profile.".format(table_id))
-                app_profile = instance.app_profile(
-                    app_profile_id=app_profile_id,
-                    routing_policy_type=routing_policy_type,
-                    description=description,
-                    cluster_id=cluster_id,
-                    allow_transactional_writes=allow_transactional_writes
-                )
-
-                if not app_profile.exists():
-                    print("App profile does not exist")
-                    app_profile = app_profile.create(ignore_warnings=True)
-                else:
-                    print("App profile {} already exists.".format(app_profile_id))
-                print('Done')  
+                    if not app_profile.exists():
+                        print("App profile does not exist")
+                        app_profile = app_profile.create(ignore_warnings=True)
+                    else:
+                        print("App profile {} already exists.".format(app_profile_id))
+                    print('Done')  
 
 def create_table():
     path = "."
@@ -106,7 +116,15 @@ def create_table():
                     else:
                         print("Table {} already exists.".format(table_id))
 
-if __name__ == "__main__":
-    #create_app_profile()
-    create_table()
+def delete_app_profile():
+    client = Client(admin=True)
+    instance = client.instance('my-instance')
+    app_profile = instance.app_profile('my_app_profile_2')
+    app_profile.reload()
 
+    app_profile.delete(ignore_warnings=True)
+
+if __name__ == "__main__":
+    create_app_profile()
+    #create_table()
+    #delete_app_profile()
