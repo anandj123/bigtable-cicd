@@ -38,30 +38,27 @@ def create_app_profile():
 
                     client = Client(project=project_id, admin=True)
                     instance = client.instance(instance_id)
-
                     routing_policy_type = ap['app_profile']['routing_policy']
+                    
                     if routing_policy_type == 'multi-cluster':
                         routing_policy_type = enums.RoutingPolicyType.ANY
                         description = "multi-cluster routing"
-                        print("Creating the {} app profile.".format(app_profile_id))
-                        app_profile = instance.app_profile(
-                            app_profile_id=app_profile_id,
-                            routing_policy_type=routing_policy_type,
-                            description=description,
-                        )
+                        cluster_id = None
+                        allow_transactional_writes = None
                     else:
                         routing_policy_type = enums.RoutingPolicyType.SINGLE
                         description = "single-cluster routing"
-                        allow_transactional_writes = ap['app_profile']['single_row_transaction']
                         cluster_id = ap['app_profile']['cluster_id']
-                        print("Creating the {} app profile.".format(app_profile_id))
-                        app_profile = instance.app_profile(
-                            app_profile_id=app_profile_id,
-                            routing_policy_type=routing_policy_type,
-                            description=description,
-                            cluster_id=cluster_id,
-                            allow_transactional_writes=allow_transactional_writes
-                        )
+                        allow_transactional_writes = ap['app_profile']['single_row_transaction']
+                    
+                    print("Creating the {} app profile.".format(app_profile_id))
+                    app_profile = instance.app_profile(
+                        app_profile_id=app_profile_id,
+                        routing_policy_type=routing_policy_type,
+                        description=description,
+                        cluster_id=cluster_id,
+                        allow_transactional_writes=allow_transactional_writes
+                    )
 
                     if not app_profile.exists():
                         print("App profile does not exist")
