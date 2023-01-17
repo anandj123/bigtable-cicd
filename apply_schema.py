@@ -44,6 +44,7 @@ def create_app_profile():
                 client = Client(project=project_id, admin=True)
                 instance = client.instance(instance_id)
 
+                print("Creating the {} app profile.".format(table_id))
                 app_profile = instance.app_profile(
                     app_profile_id=app_profile_id,
                     routing_policy_type=routing_policy_type,
@@ -66,7 +67,6 @@ def create_table():
         if (file.startswith('bigtable_schema_') and file.endswith('.yaml')):
             with open(file) as f:
                 data = yaml.load(f, Loader=SafeLoader)
-                print(data['table']['name'])
 
                 project_id = data['project_id']
                 instance_id = data['instance_id']
@@ -80,13 +80,11 @@ def create_table():
                 print("Creating the {} table.".format(table_id))
                 table = instance.table(table_id)
 
-                print("Creating column family cf1 with Max Version GC rule...")
+                #print("Creating column family cf1 with Max Version GC rule...")
                 # Create a column family with GC policy : most recent N versions
                 # Define the GC policy to retain only the most recent 2 versions
-                print(data['table']['column_families'])
                 column_families = {}
                 for cf in data['table']['column_families']:
-                    print(cf['name'])
                     max_version = int(cf['max_versions'])
                     max_versions_rule = column_family.MaxVersionsGCRule(max_version)
                     #column_families[cf['name']] = max_versions_rule
