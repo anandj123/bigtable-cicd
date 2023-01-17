@@ -65,44 +65,48 @@ def create_table():
     dir_list = os.listdir(path)
     for file in dir_list: 
         if (file.startswith('bigtable_schema_') and file.endswith('.yaml')):
+            #processing statement
+            print(file)
             with open(file) as f:
                 data = yaml.load(f, Loader=SafeLoader)
 
                 project_id = data['project_id']
                 instance_id = data['instance_id']
-                table_id = data['table']['name']
+                for tb in data['tables']:
+                    if tb['table'] is None:
+                        break
+                    table_id = tb['table']['name']
+                    #check for name
 
-                # The client must be created with admin=True because it will create a
-                # table.
-                client = bigtable.Client(project=project_id, admin=True)
-                instance = client.instance(instance_id)
+                    # The client must be created with admin=True because it will create a
+                    # table.
+                    client = bigtable.Client(project=project_id, admin=True)
+                    instance = client.instance(instance_id)
 
-                print("Creating the {} table.".format(table_id))
-                table = instance.table(table_id)
+                    print("Creating the {} table.".format(table_id))
+                    table = instance.table(table_id)
 
-                #print("Creating column family cf1 with Max Version GC rule...")
-                # Create a column family with GC policy : most recent N versions
-                # Define the GC policy to retain only the most recent 2 versions
-                column_families = {}
-                for cf in data['table']['column_families']:
-                    max_version = int(cf['max_versions'])
-                    max_versions_rule = column_family.MaxVersionsGCRule(max_version)
-                    #column_families[cf['name']] = max_versions_rule
-                    #max_age_rule
-                    max_age = int(cf['max_age_rule'])
-                    max_age_rule_ = column_family.MaxAgeGCRule(datetime.timedelta(days=max_age))
-                    column_families[cf['name']] = column_family.GCRuleUnion(rules=[max_versions_rule, max_age_rule_])
+                    #print("Creating column family cf1 with Max Version GC rule...")
+                    # Create a column family with GC policy : most recent N versions
+                    # Define the GC policy to retain only the most recent 2 versions
+                    #check for cf
+                    column_families = {}
+                    for cf in tb['table']['column_families']:
+                        max_version = int(cf['max_versions'])
+                        max_versions_rule = column_family.MaxVersionsGCRule(max_version)
+                        #column_families[cf['name']] = max_versions_rule
+                        #max_age_rule
+                        max_age = int(cf['max_age_rule'])
+                        max_age_rule_ = column_family.MaxAgeGCRule(datetime.timedelta(days=max_age))
+                        column_families[cf['name']] = column_family.GCRuleUnion(rules=[max_versions_rule, max_age_rule_])
 
-
-                #column_family_id = data['table']['column_families']['name']
-                if not table.exists():
-                    print("Table does not exist")
-                    table.create(column_families=column_families)
-                else:
-                    print("Table {} already exists.".format(table_id))
-                print('Done')       
+                    if not table.exists():
+                        print("Table does not exist")
+                        table.create(column_families=column_families)
+                    else:
+                        print("Table {} already exists.".format(table_id))
 
 if __name__ == "__main__":
-    create_app_profile()
+    #create_app_profile()
     create_table()
 

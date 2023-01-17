@@ -1,0 +1,12 @@
+project_id: hca-demo-project-373816
+instance_id: my-instance
+app_profiles:
+  app_profile:
+  name: my_app_profile
+  routing_policy: multi-cluster
+
+app_profile:
+  name: my_app_profile_2
+  routing_policy: single-cluster
+    - cluster_id: my-instance-c1 
+    - single_row_transaction: true 

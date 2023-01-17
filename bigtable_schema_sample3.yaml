@@ -1,16 +1,21 @@
 project_id: hca-demo-project-373816
 instance_id: my-instance
-cluster_id: my-instance-c1
-table:
-  name: sample3
-  column_families:
-    - name: cf1
-      max_versions: 1
-      max_age_rule: 7
-    - name: cf2
-      max_versions: 3
-      max_age_rule: 7
-app_profile:
-  name: my_app_profile
-  routing_policy: multi-cluster
-  single_row_transaction: false
+tables:
+  - table:
+      name: sample3
+      column_families:
+        - name: cf1
+          max_versions: 1
+          max_age_rule: 7
+        - name: cf2
+          max_versions: 3
+          max_age_rule: 7
+  - table:
+      name: sample5
+      column_families:
+        - name: cf1
+          max_versions: 1
+          max_age_rule: 7
+        - name: cf2
+          max_versions: 3
+          max_age_rule: 7
