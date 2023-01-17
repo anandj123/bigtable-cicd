@@ -25,7 +25,7 @@ The following prerequisites are required for the build:
 
 3. [Create a Bigtable cluster](https://cloud.google.com/bigtable/docs/creating-cluster)
 
-### Create BigTable schema files
+### Create Bigtable schema files
 
 1. Use the same naming convention for all schema files
 ```sh
@@ -52,7 +52,7 @@ tables:
 
 ```
 
-Note: You can include however many tables as needed
+***Note: You can include however many tables as needed***
 
 |Table Variable Name|Description|
 |---|---|
@@ -84,12 +84,11 @@ app_profiles:
   - app_profile:
       name: <app_profile_id>
       routing_policy: single-cluster or multi-cluster
-      cluster_id: <cluster_id> **Do not include parameter for multi-cluster configuration**
-      single_row_transaction: true or false **Do not include parameter for multi-cluster configuration**
-
+      cluster_id: <cluster_id>
+      single_row_transaction: true or false 
 ```
 
-Note: You can include however many app profiles as needed
+***Note: You can include however many app profiles as needed***
 
 |App Profile Variable Name|Description|
 |---|---|
@@ -101,10 +100,10 @@ Note: You can include however many app profiles as needed
 |---|---|
 |name|Provide the app profile id|
 |routing_pollicy|Specify whether the cluster routing is single-cluster or multi-cluster|
-|cluster_id|Provide the cluster id (do not include parameter for multi-cluster)|
-|single_row_transaction|Boolean option to allow single-row transactions for single-cluster routing (do not include parameter for multi-cluster)|
+|cluster_id|Provide the cluster id **(do not include parameter for multi-cluster)**|
+|single_row_transaction|Boolean option to allow single-row transactions for single-cluster routing **(do not include parameter for multi-cluster)**|
 
-Note: Cluster configuration is automatically set to any cluster for multi-cluster routing
+***Note: Cluster configuration is automatically set to any cluster for multi-cluster routing***
 
 # Column Family Rules
 The following code in **apply_schema.py** applies a union to the max_versions_rule and max_age_rule so that once one of the rules is met, the specific column family is no longer needed.
@@ -161,12 +160,12 @@ gcloud bigtable instances tables delete <table_id> --instance=<instance_id>
 ```
 
 # Utilizing Github Action
-Once the schema files are committed to the git repository, the github action will run the python script which create the output in Bigtable.
+Once the schema files are committed to the git repository, the github action will run the python script which creates the output in Bigtable.
 
 To check if the github action successfully ran, do the following:
-    - Click on 'Actions' on the top panel
-    - Click on the workflow that you want to inspect
-    - Click on 'build' under the 'Jobs' tab in the left panel to see the different steps of the github action as shown below 
+- Click on 'Actions' on the top panel
+- Click on the workflow that you want to inspect
+- Click on 'build' under the 'Jobs' tab in the left panel to see the different steps of the github action as shown below 
 
 ![Github Action](./img/git-action.png)
 
