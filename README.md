@@ -21,8 +21,8 @@ during CI/CD processing.
 The following prerequisites are required for the build:
 
 #### Google cloud SDK
-Use the [Installed Google Cloud SDK](https://cloud.google.com/sdk/docs/install) 
-to install google cloud sdk.
+Use the [Install Google Cloud SDK](https://cloud.google.com/sdk/docs/install) 
+to install this prerequisite.
 
 #### Service account in Google Cloud Console
 Create a service account in Google Cloud console and give all appropriate 
