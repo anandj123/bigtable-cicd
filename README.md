@@ -2,12 +2,12 @@
 This application will allow devops teams to apply schema changes to Bigtable 
 using Github Actions (CI/CD pipeline).
 
-This application checks the directory for 
+This application checks all sub-directory for the current repository for 
 
-* bigtable_schema_*.yaml files  
+* bigtable_schema_*.yaml  
 * app_profile_*.yaml 
 
-and creates a table and application_profile if it doesn't already exist 
+files and creates a [Bgtable table](https://cloud.google.com/bigtable/docs/managing-tables) and/or [application_profile](https://cloud.google.com/bigtable/docs/app-profiles) if it doesn't already exist 
 in Bigtable. This is done with the use of Github actions and Google Cloud 
 platform tools to apply schema changes to any Bigtable instance 
 during CI/CD processing.
@@ -29,6 +29,9 @@ The following prerequisites are required for the build:
     - Click on the created service accoutn and navigate to 'KEYS' near the top of the page
     - Click on 'ADD KEY' and select the 'JSON' option
     - Navigate to the github repo and click on 'Settings > Secrets and variables > Actions > Actions Secret'
+
+![Github Secret](./img/github_action_1.png)
+
     - Click on 'New repository secret' and name it 'GOOGLE_CREDENTIALS' and copy the file that was downloaded from creating a key as the secret
     - Click 'Add secret' and then add to workflow
 
