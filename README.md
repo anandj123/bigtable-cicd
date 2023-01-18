@@ -16,6 +16,7 @@ during CI/CD processing.
 
 ![Architecture](./img/arch.png)
 
+[TODO: We need some description here.]
 # Build instructions
 ### Prerequisite
 The following prerequisites are required for the build:
@@ -45,6 +46,9 @@ permissions to be able to create Bigtable table and application profiles [TODO: 
 #### Bigtable cluster
 [Create a Bigtable cluster](https://cloud.google.com/bigtable/docs/creating-cluster)
 using the above documentation.
+
+## DevOps workflow
+Please follow the below workflow for the CI/CD pipeline.
 
 ### Create Bigtable schema files
 
@@ -87,6 +91,35 @@ tables:
 |max_versions_rule|Configure the maximum number of versions for cells in a table|
 |max_age_rule|Configure the maximum age (in days) for cells in a table|
 
+### Column Family Rules
+The following code in **apply_schema.py** applies a union to the max_versions_rule and max_age_rule so that once one of the rules is met, the specific column family is no longer needed.
+
+```sh
+
+column_families[cf['name']] = column_family.GCRuleUnion(rules=[max_versions_rule, max_age_rule_])
+
+```
+
+Validating column family rules in the command line:
+
+```sh
+
+gcloud bigtable instances tables describe <table_id> --instance=<instance_id>
+
+```
+![cf_rule_command](./img/cf_rule_command.png)
+
+Validating column family rules in the console:
+
+1. Navigate to Bigtable
+2. Click on the appropriate instance
+3. Click on 'Tables' in the left pane
+4. Click on the appropriate table
+5. Click on 'EDIT TABLE' in the top right corner 
+6. Click the down arrow on the appropriate column family to see the following output
+
+![cf_rule_console](./img/cf_rule_console.png)
+
 ### Create App Profile schema files
 
 1. Use the same naming convention for all schema files
@@ -126,41 +159,13 @@ app_profiles:
 
 ***Note: Cluster configuration is automatically set to any cluster for multi-cluster routing***
 
-# Column Family Rules
-The following code in **apply_schema.py** applies a union to the max_versions_rule and max_age_rule so that once one of the rules is met, the specific column family is no longer needed.
 
-```sh
-
-column_families[cf['name']] = column_family.GCRuleUnion(rules=[max_versions_rule, max_age_rule_])
-
-```
-
-Validating column family rules in the command line:
-
-```sh
-
-gcloud bigtable instances tables describe <table_id> --instance=<instance_id>
-
-```
-![cf_rule_command](./img/cf_rule_command.png)
-
-Validating column family rules in the console:
-
-1. Navigate to Bigtable
-2. Click on the appropriate instance
-3. Click on 'Tables' in the left pane
-4. Click on the appropriate table
-5. Click on 'EDIT TABLE' in the top right corner 
-6. Click the down arrow on the appropriate column family to see the following output
-
-![cf_rule_console](./img/cf_rule_console.png)
-
-# Utilizing Python Script 
+# Testing 
 You can run the python script using the command below. This will scan the directory for all files using the naming convention (bigtable_schema_x.yaml). Then, it will read all the specified configurations in the YAML file to create the output in Bigtable.
 
 ```sh
 
-python3 apply_schema.py
+python3 source/apply_schema.py
 
 ```
 
@@ -180,7 +185,7 @@ gcloud bigtable instances tables delete <table_id> --instance=<instance_id>
 
 ```
 
-# Utilizing Github Action
+# CI/CD Pipeline execution
 Once the schema files are committed to the git repository, the github action will run the python script which creates the output in Bigtable.
 
 To check if the github action successfully ran, do the following:
