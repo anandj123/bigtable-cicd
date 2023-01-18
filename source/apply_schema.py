@@ -44,7 +44,7 @@ def list_files():
     path = "."
     for r, d, f in os.walk(path):
         for file in f:
-            if (file.startswith('app_profile') and file.endswith('.yaml')):
+            if (file.startswith('app_profile_') and file.endswith('.yaml')):
                 create_app_profile(os.path.join(r, file))
             elif (file.startswith('bigtable_schema_') and file.endswith('.yaml')):
                 create_bigtable_table(os.path.join(r, file))

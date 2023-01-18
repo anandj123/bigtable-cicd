@@ -2,12 +2,12 @@
 This application will allow devops teams to apply schema changes to Bigtable 
 using Github Actions (CI/CD pipeline).
 
-This application checks all sub-directory for the current repository for 
+This application checks all sub-directories in the current repository for 
 
 * bigtable_schema_*.yaml  
 * app_profile_*.yaml 
 
-files and creates a [Bgtable table](https://cloud.google.com/bigtable/docs/managing-tables) and/or [application_profile](https://cloud.google.com/bigtable/docs/app-profiles) if it doesn't already exist 
+files and creates a [Bgtable table](https://cloud.google.com/bigtable/docs/managing-tables) and/or [application profile](https://cloud.google.com/bigtable/docs/app-profiles) if it doesn't already exist 
 in Bigtable. This is done with the use of Github actions and Google Cloud 
 platform tools to apply schema changes to any Bigtable instance 
 during CI/CD processing.
@@ -17,17 +17,17 @@ during CI/CD processing.
 ![Architecture](./img/arch.png)
 
 [TODO: We need some description here.]
-# Build instructions
+# Build Instructions
 ### Prerequisite
 The following prerequisites are required for the build:
 
-#### Google cloud SDK
+#### Google Cloud SDK
 Use the [Install Google Cloud SDK](https://cloud.google.com/sdk/docs/install) 
 to install this prerequisite.
 
 #### Service account in Google Cloud Console
-Create a service account in Google Cloud console and give all appropriate 
-permissions to be able to create Bigtable table and application profiles [TODO: Link to the gcp doc].
+Create a [service account](https://cloud.google.com/iam/docs/creating-managing-service-accounts) in Google Cloud console and give all appropriate 
+permissions to be able to create Bigtable table and application profiles.
 
 - Navigate to the console and click on 'IAM & Admin'
 - Click on 'Service Accounts' on the left pane
@@ -35,7 +35,7 @@ permissions to be able to create Bigtable table and application profiles [TODO: 
 - Click on the created service accoutn and navigate to 'KEYS' near the top of the page
 - Click on 'ADD KEY' and select the 'JSON' option
 
-#### Github secret
+#### Github Secret
 - Navigate to the github repo and click on 'Settings > Secrets and variables > Actions > Actions Secret'
 - Click on 'New repository secret' and name it 'GOOGLE_CREDENTIALS' and copy the file that was downloaded from creating a key as the secret
 - Click 'Add secret' and then add to workflow
@@ -43,11 +43,10 @@ permissions to be able to create Bigtable table and application profiles [TODO: 
 ![Github Secret](./img/github_action_1.png)
 
 
-#### Bigtable cluster
-[Create a Bigtable cluster](https://cloud.google.com/bigtable/docs/creating-cluster)
-using the above documentation.
+#### Bigtable Cluster
+Create a [Bigtable cluster.](https://cloud.google.com/bigtable/docs/creating-cluster)
 
-# DevOps workflow
+# DevOps Workflow
 Please follow the below workflow for the CI/CD pipeline.
 
 ### Create Bigtable schema files
@@ -125,7 +124,7 @@ Validating column family rules in the console:
 1. Use the same naming convention for all schema files
 ```sh
 
-app_profile<app_profile_id>.yaml
+app_profile_<app_profile_id>.yaml
 
 ```
 
@@ -161,7 +160,7 @@ app_profiles:
 
 
 # Testing 
-You can run the python script using the command below. This will scan the directory for all files using the naming convention (bigtable_schema_x.yaml). Then, it will read all the specified configurations in the YAML file to create the output in Bigtable.
+You can run the python script using the command below. This will scan the directory for all files using the naming convention (bigtable_schema_*.yaml and/or app_profile_*.yaml). Then, it will read all the specified configurations in the YAML file to create the output in Bigtable.
 
 ```sh
 
