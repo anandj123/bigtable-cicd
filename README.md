@@ -23,13 +23,16 @@ The following prerequisites are required for the build:
 #### [Installed Google Cloud SDK](https://cloud.google.com/sdk/docs/install)
 
 #### Create a service account in Google Cloud Console
-    - Navigate to the console and click on 'IAM & Admin'
-    - Click on 'Service Accounts' on the left pane
-    - Click '+ CREATE SERVICE ACCOUNT' and create a github service account
-    - Click on the created service accoutn and navigate to 'KEYS' near the top of the page
-    - Click on 'ADD KEY' and select the 'JSON' option
+```
+- Navigate to the console and click on 'IAM & Admin'
+- Click on 'Service Accounts' on the left pane
+- Click '+ CREATE SERVICE ACCOUNT' and create a github service account
+- Click on the created service accoutn and navigate to 'KEYS' near the top of the page
+- Click on 'ADD KEY' and select the 'JSON' option
+```
+
 #### Configure github secret
-    - Navigate to the github repo and click on 'Settings > Secrets and variables > Actions > Actions Secret'
+- Navigate to the github repo and click on 'Settings > Secrets and variables > Actions > Actions Secret'
 
 ![Github Secret](./img/github_action_1.png)
 
