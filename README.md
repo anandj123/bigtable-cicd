@@ -3,8 +3,10 @@ This application will allow devops teams to apply schema changes to Bigtable
 using Github Actions (CI/CD pipeline).
 
 This application checks the directory for 
+
 * bigtable_schema_*.yaml files  
 * app_profile_*.yaml 
+
 and creates a table and application_profile if it doesn't already exist 
 in Bigtable. This is done with the use of Github actions and Google Cloud 
 platform tools to apply schema changes to any Bigtable instance 
