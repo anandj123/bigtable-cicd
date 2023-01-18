@@ -1,7 +1,14 @@
 # Overview
-This application will allow healthcare providers to apply schema changes to BigTable using Github Actions (CI/CD pipeline).
+This application will allow devops teams to apply schema changes to Bigtable 
+using Github Actions (CI/CD pipeline).
 
-This application checks the directory for bigtable_schema_x.yaml files and creates a table if it doesn't already exist in BigTable. This is done with the use of Github actions and Google Cloud platform tools to apply schema changes to any BigTable instance during CI/CD processing.
+This application checks the directory for 
+* bigtable_schema_*.yaml files  
+* app_profile_*.yaml 
+and creates a table and application_profile if it doesn't already exist 
+in Bigtable. This is done with the use of Github actions and Google Cloud 
+platform tools to apply schema changes to any Bigtable instance 
+during CI/CD processing.
 
 # Architecture 
 
