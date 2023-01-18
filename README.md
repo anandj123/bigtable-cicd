@@ -47,7 +47,7 @@ permissions to be able to create Bigtable table and application profiles [TODO: 
 [Create a Bigtable cluster](https://cloud.google.com/bigtable/docs/creating-cluster)
 using the above documentation.
 
-## DevOps workflow
+# DevOps workflow
 Please follow the below workflow for the CI/CD pipeline.
 
 ### Create Bigtable schema files
@@ -195,7 +195,7 @@ To check if the github action successfully ran, do the following:
 
 ![Github Action](./img/git-action.png)
 
-# Console Output 
+# Google Cloud Console Result 
 The console output to see the tables created in Bigtable will look like the following:
 
 ![Bigtable Tables](./img/table-output.png)
