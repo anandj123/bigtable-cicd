@@ -10,12 +10,3 @@ tables:
         - name: cf2
           max_versions_rule: 3
           max_age_rule: 7
-  - table:
-      name: sample4
-      column_families:
-        - name: cf1
-          max_versions_rule: 1
-          max_age_rule: 7
-        - name: cf2
-          max_versions_rule: 3
-          max_age_rule: 7
