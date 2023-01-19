@@ -2,7 +2,7 @@ project_id: hca-demo-project-373816
 instance_id: my-instance
 tables:
   - table:
-     - name: sample4
+      name: sample4
       column_families:
         - name: cf1
           max_versions_rule: 1
@@ -10,7 +10,8 @@ tables:
         - name: cf2
           max_versions_rule: 3
           max_age_rule: 7
-    - name: sample6
+  - table:
+      name: sample6
       column_families:
         - name: cf1
           max_versions_rule: 1
