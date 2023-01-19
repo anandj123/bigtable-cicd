@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-#Description
-
 """ 
 Scans the current github repo directory for file names
     bigtable_schema_*.yaml
