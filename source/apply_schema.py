@@ -170,5 +170,5 @@ def create_bigtable_table(file):
 
 if __name__ == "__main__":
     scan_files()
-    create_app_profile()
-    create_bigtable_table()
+    create_app_profile(file)
+    create_bigtable_table(file)
