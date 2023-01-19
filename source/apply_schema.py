@@ -40,7 +40,7 @@ Recursively go through each of the sub-directories and look for the
 file name prefix and suffix and call appropriate functions for the schema
 changes.
 '''
-def list_files():
+def scan_files():
     path = "."
     for r, d, f in os.walk(path):
         for file in f:
@@ -120,6 +120,7 @@ def create_app_profile(file):
             else:
                 print("App profile {} already exists.".format(app_profile_id))
 
+''' Function to create tables '''
 def create_bigtable_table(file):
     print("Scanning " + file + " file...")
     with open(file) as f:
@@ -170,6 +171,6 @@ def create_bigtable_table(file):
 
 
 if __name__ == "__main__":
-    list_files()
-    #create_app_profile()
-    #create_table()
+    scan_files()
+    create_app_profile()
+    create_bigtable_table()
