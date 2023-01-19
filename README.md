@@ -16,7 +16,9 @@ during CI/CD processing.
 
 ![Architecture](./img/arch.png)
 
-[TODO: We need some description here.]
+The engineering team will checkin their code and this will trigger the Github action. Once the action runs, it will create the desired output in Bigtable based
+upon the schema files. 
+
 # Build Instructions
 ### Prerequisite
 The following prerequisites are required for the build:
@@ -167,22 +169,25 @@ You can run the python script using the command below. This will scan the direct
 python3 source/apply_schema.py
 
 ```
+### Google Cloud Console Result 
+The console output to see the tables created in Bigtable will look like the following:
 
-You can create a table and apply the schema using the command below.
+![Bigtable Tables](./img/table-output.png)
 
-```sh
+The console output to see the app profiles created in Bigtable will look like the following:
 
-gcloud bigtable instances tables create <table_id> --instance=<instance_id> --column-families=<bigtable_schema_x.yaml>
+![Bigtable App Profiles](./img/app-profile-output.png)
 
-```
+### Command Line Output
 
-You can delete a table using the command below.
+The command line output to see the tables created in Bigtable will look like the following:
 
-```sh
+![Command Tables](./img/command-table.png)
 
-gcloud bigtable instances tables delete <table_id> --instance=<instance_id>
+The command output to see the app profiles created in Bigtable will look like the following:
 
-```
+![Command App Profiles](./img/command-app-profile.png)
+
 
 # CI/CD Pipeline execution
 Once the schema files are committed to the git repository, the github action will run the python script which creates the output in Bigtable.
@@ -193,25 +198,6 @@ To check if the github action successfully ran, do the following:
 - Click on 'build' under the 'Jobs' tab in the left panel to see the different steps of the github action as shown below 
 
 ![Github Action](./img/git-action.png)
-
-# Google Cloud Console Result 
-The console output to see the tables created in Bigtable will look like the following:
-
-![Bigtable Tables](./img/table-output.png)
-
-The console output to see the app profiles created in Bigtable will look like the following:
-
-![Bigtable App Profiles](./img/app-profile-output.png)
-
-# Command Line Output
-
-The command line output to see the tables created in Bigtable will look like the following:
-
-![Command Tables](./img/command-table.png)
-
-The command output to see the app profiles created in Bigtable will look like the following:
-
-![Command App Profiles](./img/command-app-profile.png)
 
 # References
 [1]  Setup gcloud GitHub Action https://github.com/google-github-actions/setup-gcloud
