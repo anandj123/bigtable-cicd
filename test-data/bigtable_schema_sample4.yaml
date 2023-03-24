@@ -18,4 +18,4 @@ tables:
           max_age_rule: 7
         - name: cf2
           max_versions_rule: 3
-          max_age_rule: 7
+          max_age_rule: 7 
